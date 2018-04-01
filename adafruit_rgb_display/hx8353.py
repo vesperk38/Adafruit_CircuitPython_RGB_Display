@@ -31,7 +31,7 @@ from adafruit_rgb_display.rgb import DisplaySPI
 from micropython import const
 
 
-__version__ = "0.0.0-auto.0"
+__version__ = "0.1.0-auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_RGB_Display.git"
 
 _SWRESET = const(0x01)

@@ -22,9 +22,7 @@
 """
 `adafruit_rgb_display.st7735`
 ====================================================
-
 A simple driver for the ST7735-based displays.
-
 * Author(s): Radomir Dopieralski, Michael McWethy
 """
 
@@ -35,7 +33,7 @@ except ImportError:
     import ustruct as struct
 from micropython import const
 
-__version__ = "0.0.0-auto.0"
+__version__ = "3.1.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_RGB_Display.git"
 
 _NOP = const(0x00)
@@ -88,17 +86,14 @@ _GMCTRN1 = const(0xE1)
 class ST7735(DisplaySPI):
     """
     A simple driver for the ST7735-based displays.
-
-    >>> import busio
-    >>> import digitalio
-    >>> import board
-    >>> from adafruit_rgb_display import color565
-    >>> import adafruit_rgb_display.st7735 as st7735
-    >>> spi = busio.SPI(clock=board.SCK, MOSI=board.MOSI, MISO=board.MISO)
-    >>> display = st7735.ST7735(spi, cs=digitalio.DigitalInOut(board.GPIO0),
+    import busio, digitalio, board
+    from adafruit_rgb_display import color565
+    import adafruit_rgb_display.st7735 as st7735
+    spi = busio.SPI(clock=board.SCK, MOSI=board.MOSI, MISO=board.MISO)
+    display = st7735.ST7735(spi, cs=digitalio.DigitalInOut(board.GPIO0),
     ...    dc=digitalio.DigitalInOut(board.GPIO15), rst=digitalio.DigitalInOut(board.GPIO16))
-    >>> display.fill(0x7521)
-    >>> display.pixel(64, 64, 0)
+    display.fill(0x7521)
+    display.pixel(64, 64, 0)
     """
     _COLUMN_SET = _CASET
     _PAGE_SET = _RASET
@@ -172,8 +167,8 @@ class ST7735R(ST7735):
 
     def init(self):
         super().init()
-        cols = struct.pack('>HH', 0, self.width - 1)
-        rows = struct.pack('>HH', 0, self.height - 1)
+        cols = struct.pack('>HH', 0, self.hardware_width - 1)
+        rows = struct.pack('>HH', 0, self.hardware_height - 1)
         for command, data in (
                 (_CASET, cols),
                 (_RASET, rows),

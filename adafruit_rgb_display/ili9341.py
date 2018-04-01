@@ -35,7 +35,7 @@ except ImportError:
 
 from adafruit_rgb_display.rgb import DisplaySPI
 
-__version__ = "0.0.0-auto.0"
+__version__ = "0.1.0-auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_RGB_Display.git"
 
 
@@ -100,6 +100,6 @@ class ILI9341(DisplaySPI):
         """Scroll the display by delta y"""
         if dy is None:
             return self._scroll
-        self._scroll = (self._scroll + dy) % self.height
+        self._scroll = (self._scroll + dy) % self.hardware_height
         self.write(0x37, struct.pack('>H', self._scroll))
         return None
